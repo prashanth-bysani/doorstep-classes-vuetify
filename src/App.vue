@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <!-- <navigation-panel /> -->
+    <navigation-panel />
     <v-main>
-      <!-- <v-overlay v-if="loading" z-index="7">
+      <v-overlay v-if="loading" z-index="7">
         <v-container v-if="loading">
           <v-row justify="center" align="center">
             <v-progress-circular indeterminate color="primary">
@@ -10,12 +10,12 @@
             <h4 class="pl-4">{{ loadLabel }}</h4>
           </v-row>
         </v-container>
-      </v-overlay> -->
+      </v-overlay>
       <router-view />
     </v-main>
-    <!-- <v-snackbar top centered app fixed :color="alertType" v-model="openAlert">{{
+    <v-snackbar top centered app fixed :color="alertType" v-model="openAlert">{{
       alertContent
-    }}</v-snackbar> -->
+    }}</v-snackbar>
   </v-app>
 </template>
 

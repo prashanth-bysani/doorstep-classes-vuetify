@@ -1,277 +1,118 @@
 <template>
-  <v-container fluid>
-    <v-row justify="center">
-      <v-col align="center">
-        <v-btn-toggle v-model="selectedRegime">
-          <v-btn label="New Regime" value="new">
-            New Regime
-          </v-btn>
-
-          <v-btn label="Old Regime" value="old">
-            Old Regime
-          </v-btn>
-        </v-btn-toggle>
-      </v-col></v-row
-    >
-    <v-container fluid v-if="selectedRegime === 'new'">
-      <v-row justify="center" class="pa-6">
-        <v-col cols="6" align="center">
-          You have opted for New tax regime, Once you submit the form then tax
-          will be calculated based on New tax regime which cannot be changed
-          until next Financial year.
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-container fluid v-if="selectedRegime === 'old'">
-      <v-form v-model="valid" :disabled="isViewMode">
-      <v-row justify="center">
-        <v-col cols="7" class="pl-0 pb-0">
-           <v-card-title>Section 10 <v-btn
-            icon
-            small
-            v-if="section10.length === 0"
-            @click="addSectionAtIndex('section10', 0)"
-          > <v-icon>mdi-plus</v-icon></v-btn></v-card-title>
-        </v-col></v-row
-      >
-      <v-row
-        justify="center"
-        v-for="(sectionData, sectionIndex) in section10"
-        :key="sectionIndex"
-      >
-        <v-col cols="2" class="pb-0 pt-0">
-          <v-text-field
-            v-model="sectionData['sectionName']"
-            label="Name"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="1" align-self="center" class="pb-0 pt-0">
-          <v-btn
-            icon
-            small
-            @click="addSectionAtIndex('section10', sectionIndex)"
-          >
-            <v-icon>mdi-plus</v-icon></v-btn
-          >
-          <v-btn
-            icon
-            small
-            @click="removeSectionAtIndex('section10', sectionIndex)"
-          >
-            <v-icon>mdi-minus</v-icon></v-btn
-          >
-        </v-col>
-        <v-col cols="4" class="pb-0 pt-0">
-          <v-text-field label="Amount" type="number" prefix="₹" v-model="sectionData['amount']">
-            <v-tooltip slot="append-outer" right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon
-                  slot="activator"
-                  color="primary"
-                  v-on="on"
-                  v-bind="attrs"
-                  >mdi-information-outline</v-icon
-                >
-              </template>
-              <span>{{ hintData["section10"] }}</span>
-            </v-tooltip></v-text-field
-          >
-        </v-col></v-row
-      >
-      <v-row justify="center">
-        <v-col cols="7" align-self="center" class="pl-0 pb-0 pt-0">
-          <v-card-title>Section 80 <v-btn
-            icon
-            small
-            v-if="section80.length === 0"
-            @click="addSectionAtIndex('section80', 0)"
-          > <v-icon>mdi-plus</v-icon></v-btn></v-card-title>
-        </v-col></v-row
-      >
-      <v-row
-        justify="center"
-        v-for="(sectionData, sectionIndex) in section80"
-        :key="sectionIndex"
-      >
-        <v-col cols="1" class="pb-0 pt-0">
-          <v-text-field
-            label="Section Code"
-            v-model="sectionData['sectionCode']"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="1" class="pb-0 pt-0">
-          <v-text-field
-            label="Name"
-            v-model="sectionData['sectionName']"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="1" align-self="center" class="pb-0 pt-0">
-          <v-btn
-            icon
-            small
-            @click="addSectionAtIndex('section80', sectionIndex)"
-          >
-            <v-icon>mdi-plus</v-icon></v-btn
-          >
-          <v-btn
-            icon
-            small
-            @click="removeSectionAtIndex('section80', sectionIndex)"
-          >
-            <v-icon>mdi-minus</v-icon></v-btn
-          >
-        </v-col>
-        <v-col cols="4" class="pb-0 pt-0">
-          <v-text-field label="Amount" prefix="₹" type="number" v-model="sectionData['amount']">
-            <v-tooltip slot="append-outer" right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon
-                  slot="activator"
-                  color="primary"
-                  v-on="on"
-                  v-bind="attrs"
-                  >mdi-information-outline</v-icon
-                >
-              </template>
-              <span>{{ hintData["section80"] }}</span>
-            </v-tooltip></v-text-field
-          >
-        </v-col></v-row
-      >
-       <v-row justify="center">
-        <v-col cols="7" align-self="center" class="pl-0 pb-0 pt-0">
-          <v-card-title>Other Sections<v-btn
-            icon
-            small
-            v-if="otherSections.length === 0"
-            @click="addSectionAtIndex('otherSections', 0)"
-          > <v-icon>mdi-plus</v-icon></v-btn></v-card-title>
-        </v-col></v-row
-      >
-      <v-row
-        justify="center"
-        v-for="(sectionData, sectionIndex) in otherSections"
-        :key="sectionIndex"
-      >
-        <v-col cols="1" class="pb-0 pt-0">
-          <v-text-field
-            label="Section Code"
-            v-model="sectionData['sectionCode']"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="1" class="pb-0 pt-0">
-          <v-text-field
-            label="Name"
-            v-model="sectionData['sectionName']"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="1" align-self="center" class="pb-0 pt-0">
-          <v-btn
-            icon
-            small
-            @click="addSectionAtIndex('otherSections', sectionIndex)"
-          >
-            <v-icon>mdi-plus</v-icon></v-btn
-          >
-          <v-btn
-            icon
-            small
-            @click="removeSectionAtIndex('otherSections', sectionIndex)"
-          >
-            <v-icon>mdi-minus</v-icon></v-btn
-          >
-        </v-col>
-        <v-col cols="4" class="pb-0 pt-0">
-          <v-text-field label="Amount"  prefix="₹" type="number" v-model="sectionData['amount']">
-            <v-tooltip slot="append-outer" right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon
-                  slot="activator"
-                  color="primary"
-                  v-on="on"
-                  v-bind="attrs"
-                  >mdi-information-outline</v-icon
-                >
-              </template>
-              <span>{{ hintData["section80"] }}</span>
-            </v-tooltip></v-text-field
-          >
-        </v-col></v-row
-      >
-      </v-form>
-    </v-container>
-    <v-row justify="center">
-      <v-col align="center">
-        <v-btn color="primary" @click="dialog = true">
-          Submit
+  <v-container>
+    <v-row>
+      <v-col cols="12" sm="10">
+        <v-file-input
+          small-chips
+          solo
+          label="Upload student data"
+          @change="handleUpload"
+          :disabled="uploading"
+          show-size
+        ></v-file-input> </v-col
+      ><v-col cols="12" sm="2" align="end">
+        <v-btn
+          :loading="uploading"
+          :disabled="uploading"
+          color="primary"
+          class="ma-1 white--text"
+          @click="uploadStudentData"
+        >
+          Upload
+          <v-icon right dark>
+            mdi-cloud-upload
+          </v-icon>
         </v-btn>
       </v-col></v-row
     >
-    <v-dialog v-model="dialog" persistent max-width="290">
-      <v-card>
-        <v-card-title>
-          Confirmation
-        </v-card-title>
-        <v-card-text>Once Submitted cannot be changed</v-card-text>
-        <v-card-text>Do you want to submit?</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="submitData">
-            Submit
-          </v-btn>
-          <v-btn text @click="dialog = false">
-            Cancel
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <v-card width="100vw">
+      <v-data-table
+        v-model="selected"
+        :headers="headers"
+        :items="studentData"
+        item-key="name"
+        show-select
+        :loading="dataLoading"
+        loading-text="Loading... Please wait"
+        class="elevation-1"
+      >
+      </v-data-table>
+    </v-card>
   </v-container>
 </template>
 
 <script>
-import { reactive, set, toRefs } from "@vue/composition-api";
-import { data, methods, AdminBase } from "@/basefiles/AdminBase.js";
+import { reactive, toRefs } from "@vue/composition-api";
+import XLSX from "xlsx";
+import firebaseUtils from "@/services/FirebaseUtils.js";
+import {data, methods, AdminBase} from "@/basefiles/AdminBase.js";
 export default {
   setup() {
     const baseData = reactive({
-      selectedRegime: "new",
-      hintData: {
-        section10: "This is your name",
-      },
-      section10: [{ sectionName: "HRA", amount: null }],
-      section80: [
-        { sectionCode: "80CC", sectionName: "Insurance", amount: null },
-      ],
-      otherSections: [],
-      dialog: false,
-      isViewMode: false,
+      studentData: [],
+      selected: [],
       dataLoading: false,
+      uploading: false,
+      headers: [
+        { text: "Admission Number", sortable: false, value: "AdmissionNo" },
+        { text: "Student Name", sortable: false, value: "StudentName" },
+        { text: "Mobile Number", sortable: false, value: "MobileNumber" },
+        { text: "Email Address", sortable: false, value: "EmailAddress" },
+        { text: "Parent Name", sortable: false, value: "ParentName" },
+      ]
     });
     AdminBase(baseData);
     publicMethods(data, methods);
     return {
       ...toRefs(data),
-      ...methods,
+      ...methods
     };
-  },
+  }
 };
 const publicMethods = (data, methods) => {
-  methods.submitData = () => {
-    data.dialog = false;
-    methods.showLoading("updating");
+  methods.handleUpload = event => {
+    data.dataLoading = true;
+    if (!event) {
+      data.studentData = [];
+      data.dataLoading = false;
+    }
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var dataSheet = new Uint8Array(file.target.result);
+      var workbook = XLSX.read(dataSheet, { type: "array" });
+      XLSX.utils
+        .sheet_to_json(workbook.Sheets[workbook.SheetNames[0]])
+        .forEach(studentData => {
+          data.studentData.push(studentData);
+        }, this);
+      data.dataLoading = false;
+    };
+    reader.readAsArrayBuffer(event);
   };
-  methods.addSectionAtIndex = (section, index) => {
-    data[section].splice(index + 1, 0, {});
-  };
-  methods.removeSectionAtIndex = (section, index) => {
-    data[section].splice(index, 1);
+
+  methods.uploadStudentData = () => {
+    data.uploading = true;
+    if(data.studentData.length == 0){
+      data.uploading = false;
+      methods.showAlert("No data available", "error");
+    }
+    data.studentData.forEach(item=>{
+          setTimeout(()=>{
+          firebaseUtils
+            .auth()
+            .createUserWithEmailAndPassword(
+              item.EmailAddress,
+              item.MobileNumber+""
+            )
+            .then(() => {
+              methods.showAlert("Registeration success for "+item.StudentName, "success");
+            })
+            .catch(err => {
+              methods.showAlert("Registeration failed", "error");
+            });
+        }, 1000);
+      });
+      data.uploading = false;
   };
 };
 </script>
-<style scoped>
-::v-deep input::-webkit-outer-spin-button,
-::v-deep input::-webkit-inner-spin-button {
--webkit-appearance: none;
-margin: 0;
-}
-</style>

@@ -1,13 +1,14 @@
 import firebase from "firebase";
 
-var firebaseConfig = {
-  apiKey: "AIzaSyAAO_2S6To-Yv-9-wSm8K20y8jPFh_DM4w",
-  authDomain: "broxford-school.firebaseapp.com",
-  projectId: "broxford-school",
-  storageBucket: "broxford-school.appspot.com",
-  messagingSenderId: "614930562233",
-  appId: "1:614930562233:web:5626b4a469f4286d1cef68",
-  measurementId: "G-BB25XW1VF7"
+const firebaseConfig = {
+  apiKey: "AIzaSyC_6EMUy6h2kBM0qsTHCYli6IcVyvh4bnM",
+  authDomain: "doorstepclasses-3634f.firebaseapp.com",
+  databaseURL: "https://doorstepclasses-3634f.firebaseio.com",
+  projectId: "doorstepclasses-3634f",
+  storageBucket: "doorstepclasses-3634f.appspot.com",
+  messagingSenderId: "862257826421",
+  appId: "1:862257826421:web:e03091f1ed9212432f863c",
+  measurementId: "G-B1DHRTY5G6"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
