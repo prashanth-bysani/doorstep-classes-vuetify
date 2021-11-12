@@ -18,9 +18,11 @@ Vue.use(YimoVueEditor, {
   }
 });
 let app;
-firebaseUtils.auth().onAuthStateChanged(user => {
+firebaseUtils.auth().onAuthStateChanged(async user => {
   if (user) {
     data.isAuthenticated = true;
+    let userData = await firebaseUtils.getUserData(user.email);
+    data. userData = userData;
   } else {
     data.isAuthenticated = false;
   }

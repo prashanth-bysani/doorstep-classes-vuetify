@@ -36,7 +36,7 @@ export default {
     let userData = null;
     await firebase
       .firestore()
-      .collection("user_data")
+      .collection("users_info")
       .where("emailAddress", "==", email)
       .get()
       .then(function(doc) {

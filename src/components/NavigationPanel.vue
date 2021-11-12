@@ -53,13 +53,8 @@ export default {
     const baseData = reactive({
       admins: [
         ["Add Students", "mdi-plus-outline", "AddStudents"],
-        ["Add Questions", "mdi-plus-outline", "AddQuestions"],
-        [
-          "Absentees Alert",
-          "mdi-message-arrow-right-outline",
-          "AbsenteesAlert"
-        ],
-        ["Send Results", "mdi-book-open-variant", "ResultsAlert"]
+        ["Add Questions", "mdi-pencil", "AddQuestions"],
+        ["Results", "mdi-book-open-variant", "Results"]
       ]
     });
     publicMethods(data, methods);
