@@ -14,7 +14,7 @@
           <v-list-item-title>Users</v-list-item-title>
         </template>
 
-        <v-list-group sub-group>
+        <v-list-group sub-group v-if="isAuthenticated">
           <template v-slot:activator>
             <v-list-item-content>
               <v-list-item-title>Admin</v-list-item-title>
@@ -53,6 +53,7 @@ export default {
     const baseData = reactive({
       admins: [
         ["Add Students", "mdi-plus-outline", "AddStudents"],
+        ["Add Questions", "mdi-plus-outline", "AddQuestions"],
         [
           "Absentees Alert",
           "mdi-message-arrow-right-outline",

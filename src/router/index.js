@@ -18,6 +18,12 @@ const routes = [
     meta: { isAuthRequired: true }
   },
   {
+    path: "/admin/addquestion",
+    name: "AddQuestions",
+    component: () => import("@/views/admin/practice/AddQuestions.vue"),
+    meta: { isAuthRequired: true }
+  },
+  {
     path: "/auth/login",
     name: "Login",
     component: () => import("@/views/auth/Login.vue"),

@@ -1,10 +1,11 @@
 <template>
-  <v-container>
+  <v-container >
+    <v-row justify="center" class="py-2">Login </v-row>
     <v-row justify="center">
       <v-col align="center" cols="12" sm="10" md="8" lg="6">
         <v-card>
           <v-card-text>
-            <v-form ref="form" v-model="valid" lazy-validation @submit="login">
+            <v-form ref="form" v-model="valid" @submit.prevent="login">
               <v-text-field
                 v-model.trim="emailAddress"
                 solo
@@ -30,6 +31,7 @@
                     :disabled="!valid"
                     color="primary"
                     @click="login"
+                    type="submit"
                   >
                     login
                   </v-btn>
