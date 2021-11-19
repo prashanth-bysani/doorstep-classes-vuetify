@@ -24,6 +24,12 @@ const routes = [
     meta: { isAuthRequired: true }
   },
   {
+    path: "/master/classes",
+    name: "ClassMaster",
+    component: () => import("@/views/master/ClassMaster.vue"),
+    meta: { isAuthRequired: true }
+  },
+  {
     path: "/auth/login",
     name: "Login",
     component: () => import("@/views/auth/Login.vue"),

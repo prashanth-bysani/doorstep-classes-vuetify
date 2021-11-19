@@ -130,5 +130,8 @@ const authMethods = (data, methods) => {
       methods.navigate(currentRoute);
     }
   };
+  methods.isAccessable = (module, menuKey) => {
+    return module || menuKey;
+  };
 };
 export { data, methods, AppBase };

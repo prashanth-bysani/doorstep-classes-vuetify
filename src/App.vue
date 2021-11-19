@@ -2,7 +2,7 @@
   <v-app>
     <navigation-panel />
     <v-main>
-      <v-overlay v-if="loading" z-index="7">
+      <v-overlay v-if="loading" z-index="501">
         <v-container v-if="loading">
           <v-row justify="center" align="center">
             <v-progress-circular indeterminate color="primary">
@@ -11,7 +11,9 @@
           </v-row>
         </v-container>
       </v-overlay>
-      <router-view />
+      <v-container>
+        <router-view />
+      </v-container>
     </v-main>
     <v-snackbar top centered app fixed :color="alertType" v-model="openAlert">{{
       alertContent

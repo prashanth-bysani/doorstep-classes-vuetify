@@ -9,20 +9,20 @@
         <v-list-item-title>Home</v-list-item-title>
       </v-list-item>
 
-      <v-list-group prepend-icon="mdi-account-circle">
+      <v-list-group prepend-icon="mdi-account-circle" v-if="isAuthenticated">
         <template v-slot:activator>
           <v-list-item-title>Users</v-list-item-title>
         </template>
 
-        <v-list-group sub-group v-if="isAuthenticated">
+        <v-list-group sub-group v-for="(menus, module) in getAccessableMenu(menu)" :key="module">
           <template v-slot:activator>
             <v-list-item-content>
-              <v-list-item-title>Admin</v-list-item-title>
+              <v-list-item-title>{{ module }}</v-list-item-title>
             </v-list-item-content>
           </template>
 
           <v-list-item
-            v-for="([title, icon, value], i) in admins"
+            v-for="([title, icon, value], i) in menus"
             :key="i"
             link
             @click="naviagteTo(value)"
@@ -51,11 +51,14 @@ export default {
   name: "navigation-panel",
   setup() {
     const baseData = reactive({
-      admins: [
-        ["Add Students", "mdi-plus-outline", "AddStudents"],
-        ["Add Questions", "mdi-pencil", "AddQuestions"],
-        ["Results", "mdi-book-open-variant", "Results"]
-      ]
+      menu: {
+        Admin: [
+          ["Add Students", "mdi-plus-outline", "AddStudents"],
+          ["Add Questions", "mdi-pencil", "AddQuestions"],
+          ["Results", "mdi-book-open-variant", "Results"]
+        ],
+        Master: [["Classes", "mdi-book-open-variant", "ClassMaster"]]
+      }
     });
     publicMethods(data, methods);
     return { ...toRefs(baseData), ...toRefs(data), ...methods };
@@ -64,6 +67,10 @@ export default {
 const publicMethods = (data, methods) => {
   methods.navigateTo = routeName => {
     methods.navigate({ name: routeName });
+  };
+
+  methods.getAccessableMenu = menu => {
+    return menu;
   };
 };
 </script>

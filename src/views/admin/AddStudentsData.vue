@@ -45,7 +45,7 @@
 import { reactive, toRefs } from "@vue/composition-api";
 import XLSX from "xlsx";
 import firebaseUtils from "@/services/FirebaseUtils.js";
-import {data, methods, AdminBase} from "@/basefiles/AdminBase.js";
+import { data, methods, AdminBase } from "@/basefiles/AdminBase.js";
 export default {
   setup() {
     const baseData = reactive({
@@ -58,7 +58,7 @@ export default {
         { text: "Student Name", sortable: false, value: "StudentName" },
         { text: "Mobile Number", sortable: false, value: "MobileNumber" },
         { text: "Email Address", sortable: false, value: "EmailAddress" },
-        { text: "Parent Name", sortable: false, value: "ParentName" },
+        { text: "Parent Name", sortable: false, value: "ParentName" }
       ]
     });
     AdminBase(baseData);
@@ -92,27 +92,30 @@ const publicMethods = (data, methods) => {
 
   methods.uploadStudentData = () => {
     data.uploading = true;
-    if(data.studentData.length == 0){
+    if (data.studentData.length == 0) {
       data.uploading = false;
       methods.showAlert("No data available", "error");
     }
-    data.studentData.forEach(item=>{
-          setTimeout(()=>{
-          firebaseUtils
-            .auth()
-            .createUserWithEmailAndPassword(
-              item.EmailAddress,
-              item.MobileNumber+""
-            )
-            .then(() => {
-              methods.showAlert("Registeration success for "+item.StudentName, "success");
-            })
-            .catch(err => {
-              methods.showAlert("Registeration failed", "error");
-            });
-        }, 1000);
-      });
-      data.uploading = false;
+    data.studentData.forEach(item => {
+      setTimeout(() => {
+        firebaseUtils
+          .auth()
+          .createUserWithEmailAndPassword(
+            item.EmailAddress,
+            item.MobileNumber + ""
+          )
+          .then(() => {
+            methods.showAlert(
+              "Registeration success for " + item.StudentName,
+              "success"
+            );
+          })
+          .catch(() => {
+            methods.showAlert("Registeration failed", "error");
+          });
+      }, 1000);
+    });
+    data.uploading = false;
   };
 };
 </script>
